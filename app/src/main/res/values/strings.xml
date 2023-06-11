@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Manga Reader</string>
+    <!--    Destinations -->
+    <string name="destination_login">Login</string>
+    <string name="destination_favorites">Preferiti</string>
+</resources>
