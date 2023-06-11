@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Manga Reader</string>
     <!--    Destinations -->
-    <string name="destination_login">Login</string>
-    <string name="destination_favorites">Preferiti</string>
+    <string name="tab_favorites">Preferiti</string>
+    <string name="tab_discover">Discover</string>
+    <string name="tab_account">Account</string>
+    <string name="tab_updated">Aggiornamenti</string>
 </resources>

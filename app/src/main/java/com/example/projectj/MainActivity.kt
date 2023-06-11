@@ -14,16 +14,13 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
+        
         setContent {
             ProjectJTheme {
                 val windowSize = calculateWindowSizeClass(activity = this)
                 val displayFeatures = calculateDisplayFeatures(activity = this)
 
                 ProjectJApp(
-                    navController = navController,
                     windowSize = windowSize,
                     displayFeatures = displayFeatures
                 )

@@ -35,14 +35,14 @@ fun isSeparating(foldFeature: FoldingFeature?): Boolean {
  * Different type of navigation supported by app depending on device size and state.
  */
 enum class ProjectJNavigationType {
-    BOTTOM_NAVIGATION, NAVIGATION_RAIL, PERMANENT_NAVIGATION_DRAWER
+    BOTTOM_NAVIGATION, NAVIGATION_RAIL
 }
 
 /**
  * Different position of navigation content inside Navigation Rail, Navigation Drawer depending on device size and state.
  */
 enum class ProjectJNavigationContentPosition {
-    TOP, CENTER
+    TOP, CENTER, BOTTOM
 }
 
 /**
