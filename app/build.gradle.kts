@@ -31,6 +31,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -44,7 +45,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
     packaging {
         resources {
@@ -70,15 +71,21 @@ dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.runtime.compose)
     implementation(libs.activity.compose)
+    implementation(libs.material)
+
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
-    implementation(libs.material)
+    implementation(libs.material.compose)
     implementation(libs.material3)
     implementation(libs.material3.windowsize)
     implementation(libs.icons.extended)
+    implementation(libs.foundation)
+    implementation(libs.runtime)
+    implementation(libs.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -93,12 +100,21 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 
+    kapt(libs.moshi.codegen)
+    implementation(libs.moshi)
+    implementation(libs.moshi.codegen)
+
     implementation(libs.daggerHilt)
-    implementation(libs.daggerHilt.compiler)
+    kapt(libs.daggerHilt.compiler)
+
+    implementation(libs.hilt.navigationcompose)
+    implementation(libs.viewmodel.compose)
 
     implementation(libs.navigation)
     implementation(libs.retrofit)
+    implementation(libs.retrofit.moshiConverter)
 
     implementation(libs.accompanist.adaptive)
+    implementation(libs.accompanist.placeholder)
 
 }

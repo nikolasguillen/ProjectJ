@@ -9,7 +9,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.projectj.ui.ProjectJApp
 import com.example.projectj.ui.theme.ProjectJTheme
 import com.google.accompanist.adaptive.calculateDisplayFeatures
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
