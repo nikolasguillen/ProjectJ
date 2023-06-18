@@ -22,12 +22,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.projectj.data.remote.dto.manga_list.RankedMangaData
+import com.example.projectj.data.remote.dto.MangaDetails
+import com.example.projectj.data.remote.dto.RankedMangaData
 
 @Composable
 fun ProjectJMangaListItem(
-    manga: RankedMangaData,
-    navigateToDetail: (Long) -> Unit,
+    manga: MangaDetails,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
     isOpened: Boolean = false
 ) {
@@ -36,7 +37,7 @@ fun ProjectJMangaListItem(
             .padding(horizontal = 16.dp, vertical = 4.dp)
             .clip(CardDefaults.shape)
             .clickable {
-                navigateToDetail(manga.details.id.toLong())
+                navigateToDetail(manga.id)
             }
             .clip(CardDefaults.shape)
             .height(170.dp),
@@ -53,7 +54,7 @@ fun ProjectJMangaListItem(
                     .width(100.dp)
             ) {
                 AsyncImage(
-                    model = manga.details.mainPicture.medium,
+                    model = manga.mainPicture.medium,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -70,7 +71,7 @@ fun ProjectJMangaListItem(
             }
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "${manga.ranking.rank}. ${manga.details.title}",
+                    text = "${manga.rank}. ${manga.title}",
                     style = MaterialTheme.typography.titleLarge,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
@@ -78,7 +79,7 @@ fun ProjectJMangaListItem(
                 )
                 Text(
                     text = "Autori: ${
-                        manga.details.authors.joinToString(
+                        manga.authors.joinToString(
                             limit = 2,
                             truncated = " and others..."
                         ) { "${it.authorDetails.firstName ?: ""} ${it.authorDetails.lastName ?: ""}" }
@@ -89,7 +90,7 @@ fun ProjectJMangaListItem(
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 4.dp)
                 )
                 Text(
-                    text = "Genere: ${manga.details.genres.joinToString(limit = 3, truncated = "") { it.name }}",
+                    text = "Genere: ${manga.genres.joinToString(limit = 3, truncated = "") { it.name }}",
                     style = MaterialTheme.typography.bodyLarge,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,

@@ -1,4 +1,4 @@
-package com.example.projectj.data.remote.dto.manga_list
+package com.example.projectj.data.remote.dto
 
 sealed class MangaRankingType(val rankingType: String) {
     object All : MangaRankingType("all")

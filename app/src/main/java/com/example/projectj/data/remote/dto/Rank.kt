@@ -1,4 +1,4 @@
-package com.example.projectj.data.remote.dto.manga_list
+package com.example.projectj.data.remote.dto
 
 import com.squareup.moshi.JsonClass
 

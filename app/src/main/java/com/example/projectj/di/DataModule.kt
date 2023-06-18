@@ -1,7 +1,7 @@
 package com.example.projectj.di
 
 import com.example.projectj.data.BASE_URL
-import com.example.projectj.data.remote.MangaListApi
+import com.example.projectj.data.remote.MangaApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +32,7 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideProductApi(client: OkHttpClient): MangaListApi {
+    fun provideMangaApi(client: OkHttpClient): MangaApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())

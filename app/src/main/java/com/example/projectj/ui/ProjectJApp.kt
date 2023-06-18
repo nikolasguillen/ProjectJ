@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -206,12 +207,16 @@ private fun ProjectJNavHost(
         composable(ProjectJRoute.DISCOVER) {
             val viewModel = hiltViewModel<DiscoverViewModel>()
 
+            val state by viewModel.state.collectAsStateWithLifecycle()
+
             ProjectJMangaListScreen(
-                viewModel = viewModel,
+                state = state,
+                onRefresh = { viewModel.loadMangaList(isRefreshing = true) },
                 contentType = contentType,
                 displayFeatures = displayFeatures,
                 navigationType = navigationType,
-                navigateToDetail = { _, _ -> }
+                navigateToDetail = viewModel::setOpenedManga,
+                closeDetailScreen = viewModel::closeDetailScreen
             )
         }
 

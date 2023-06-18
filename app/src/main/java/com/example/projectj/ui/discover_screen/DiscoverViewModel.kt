@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projectj.R
 import com.example.projectj.data.remote.MangaFields
-import com.example.projectj.data.remote.MangaListApi
-import com.example.projectj.data.remote.dto.manga_list.MangaListItemDetails
-import com.example.projectj.data.remote.dto.manga_list.MangaRankingType
-import com.example.projectj.data.remote.dto.manga_list.RankedMangaData
+import com.example.projectj.data.remote.MangaApi
+import com.example.projectj.data.remote.dto.MangaDetails
+import com.example.projectj.data.remote.dto.MangaRankingType
+import com.example.projectj.data.remote.dto.RankedMangaData
+import com.example.projectj.ui.utils.ProjectJContentType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +21,7 @@ import javax.inject.Inject
 class DiscoverViewModel
 @Inject
 constructor(
-    private val mangaListApi: MangaListApi
+    private val mangaApi: MangaApi
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ProjectJMangaListUiState())
@@ -34,14 +35,19 @@ constructor(
         _state.value = _state.value.copy(isLoading = true, isRefreshing = isRefreshing)
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
-                mangaListApi.getMangaRanking(
+                mangaApi.getMangaRanking(
                     rankingType = MangaRankingType.Favorite.rankingType,
                     fields = listOf(
                         MangaFields.ID,
                         MangaFields.TITLE,
                         MangaFields.MAIN_PICTURE,
                         MangaFields.AUTHORS,
-                        MangaFields.GENRES
+                        MangaFields.GENRES,
+                        MangaFields.SYNOPSIS,
+                        MangaFields.START_DATE,
+                        MangaFields.UPDATED_AT,
+                        MangaFields.PICTURES,
+                        MangaFields.BACKGROUND
                     ).joinToString(separator = ",") { it }
                 )
             }
@@ -49,8 +55,28 @@ constructor(
                 .onSuccess { response ->
                     val mangaList = response.data
                         .sortedBy { it.ranking.rank }
+                        .map {
+                            MangaDetails(
+                                id = it.details.id,
+                                title = it.details.title,
+                                mainPicture = it.details.mainPicture,
+                                authors = it.details.authors,
+                                genres = it.details.genres,
+                                synopsis = it.details.synopsis,
+                                creationDate = it.details.creationDate,
+                                lastUpdated = it.details.lastUpdated
+                                    .substringBefore("+")
+                                    .replace("T", " ")
+                                ,
+                                pictures = it.details.pictures,
+                                background = it.details.background,
+                                rank = it.ranking.rank
+                            )
+                        }
+
                     _state.value = ProjectJMangaListUiState(
                         mangaList = mangaList,
+                        openedManga = mangaList.first(),
                         isLoading = false,
                         isRefreshing = false
                     )
@@ -66,12 +92,28 @@ constructor(
                 }
         }
     }
+
+    fun setOpenedManga(mangaId: Int, contentType: ProjectJContentType) {
+        val manga = _state.value.mangaList.find { it.id == mangaId }
+        _state.value = _state.value.copy(
+            openedManga = manga,
+            isDetailOnlyOpen = contentType == ProjectJContentType.SINGLE_PANE
+        )
+    }
+
+    fun closeDetailScreen() {
+        _state.value = _state
+            .value.copy(
+                isDetailOnlyOpen = false,
+                openedManga = _state.value.mangaList.first()
+            )
+    }
 }
 
 data class ProjectJMangaListUiState(
     @StringRes val pageTitleResId: Int = R.string.top_ranked_mangas,
-    val mangaList: List<RankedMangaData> = emptyList(),
-    val openedManga: MangaListItemDetails? = null,
+    val mangaList: List<MangaDetails> = emptyList(),
+    val openedManga: MangaDetails? = null,
     val isDetailOnlyOpen: Boolean = false,
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,

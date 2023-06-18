@@ -117,4 +117,6 @@ dependencies {
     implementation(libs.accompanist.adaptive)
     implementation(libs.accompanist.placeholder)
 
+    implementation(libs.kotlinXTime)
+
 }

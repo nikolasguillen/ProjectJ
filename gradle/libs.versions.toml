@@ -18,9 +18,11 @@ accompanist = "0.30.1"
 moshi = "1.14.0"
 hiltNavigationCompose = "1.1.0-alpha01"
 composeCompiler = "1.4.7"
+kotlinXTime = "0.4.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+kotlinXTime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinXTime" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }

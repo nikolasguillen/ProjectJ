@@ -1,12 +1,12 @@
 package com.example.projectj.data.remote
 
 import com.example.projectj.data.CLIENT_ID
-import com.example.projectj.data.remote.dto.manga_list.MangaRankingResponseDto
+import com.example.projectj.data.remote.dto.MangaRankingResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-interface MangaListApi {
+interface MangaApi {
     @GET(MANGA_RANKING_URL)
     suspend fun getMangaRanking(
         @Header("X-MAL-CLIENT-ID") clientId: String = CLIENT_ID,
