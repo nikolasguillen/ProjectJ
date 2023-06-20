@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.window.layout.DisplayFeature
 import coil.compose.AsyncImage
+import com.example.projectj.R
 import com.example.projectj.data.remote.dto.MangaDetails
 import com.example.projectj.ui.components.ProjectJMangaListItem
 import com.example.projectj.ui.discover_screen.ProjectJMangaListUiState
@@ -304,20 +305,20 @@ fun ProjectJMangaDetail(
                 ) {
                     Text(
                         text = manga.title,
-                        style = MaterialTheme.typography.displaySmall,
+                        style = MaterialTheme.typography.headlineLarge,
                         maxLines = 4,
                         overflow = TextOverflow.Ellipsis
                     )
                     Row {
                         Text(
-                            text = "Authors: ",
+                            text = stringResource(R.string.authors_label),
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
                         )
                         Text(text = manga.authors.joinToString { "${it.authorDetails.firstName} ${it.authorDetails.lastName}" })
                     }
                     Row {
                         Text(
-                            text = "Year: ",
+                            text = stringResource(R.string.year_label),
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
                         )
                         Text(
@@ -327,7 +328,7 @@ fun ProjectJMangaDetail(
                     }
                     Row {
                         Text(
-                            text = "Genre: ",
+                            text = stringResource(R.string.genre_label),
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
                         )
                         Text(text = manga.genres.joinToString(limit = 5, truncated = "") { it.name }
@@ -335,7 +336,7 @@ fun ProjectJMangaDetail(
                     }
                     Row {
                         Text(
-                            text = "Last update: ",
+                            text = stringResource(R.string.last_update_label),
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
                         )
                         Text(
@@ -346,7 +347,7 @@ fun ProjectJMangaDetail(
                 }
             }
             Text(
-                text = "Synopsis:",
+                text = stringResource(R.string.synopsis_label),
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
             )
             Text(text = manga.synopsis, style = MaterialTheme.typography.bodyLarge)

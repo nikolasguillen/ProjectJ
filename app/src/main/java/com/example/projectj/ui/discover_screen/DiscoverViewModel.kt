@@ -1,14 +1,14 @@
 package com.example.projectj.ui.discover_screen
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.projectj.R
-import com.example.projectj.data.remote.MangaFields
 import com.example.projectj.data.remote.MangaApi
+import com.example.projectj.data.remote.MangaFields
 import com.example.projectj.data.remote.dto.MangaDetails
 import com.example.projectj.data.remote.dto.MangaRankingType
-import com.example.projectj.data.remote.dto.RankedMangaData
 import com.example.projectj.ui.utils.ProjectJContentType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -55,22 +55,21 @@ constructor(
                 .onSuccess { response ->
                     val mangaList = response.data
                         .sortedBy { it.ranking.rank }
-                        .map {
+                        .map { data ->
                             MangaDetails(
-                                id = it.details.id,
-                                title = it.details.title,
-                                mainPicture = it.details.mainPicture,
-                                authors = it.details.authors,
-                                genres = it.details.genres,
-                                synopsis = it.details.synopsis,
-                                creationDate = it.details.creationDate,
-                                lastUpdated = it.details.lastUpdated
+                                id = data.details.id,
+                                title = data.details.title,
+                                mainPicture = data.details.mainPicture,
+                                authors = data.details.authors,
+                                genres = data.details.genres,
+                                synopsis = data.details.synopsis,
+                                creationDate = data.details.creationDate,
+                                lastUpdated = data.details.lastUpdated
                                     .substringBefore("+")
-                                    .replace("T", " ")
-                                ,
-                                pictures = it.details.pictures,
-                                background = it.details.background,
-                                rank = it.ranking.rank
+                                    .replace("T", " "),
+                                pictures = data.details.pictures,
+                                background = data.details.background,
+                                rank = data.ranking.rank
                             )
                         }
 

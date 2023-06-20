@@ -6,4 +6,9 @@
     <string name="tab_account">Account</string>
     <string name="tab_updated">Updates</string>
     <string name="top_ranked_mangas">Top ranked</string>
+    <string name="authors_label">"Authors: "</string>
+    <string name="year_label">"Year: "</string>
+    <string name="genre_label">"Genre: "</string>
+    <string name="last_update_label">"Last update: "</string>
+    <string name="synopsis_label">Synopsis:</string>
 </resources>
